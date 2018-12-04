@@ -342,11 +342,11 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	}
 
 	public synchronized void unlock(List<LockableResource> resourcesToUnLock, @Nullable Run<?, ?> build) {
-		unlock(resourcesToUnLock, build, null, false);
+		unlock(resourcesToUnLock, build, false);
 	}
 
 	public synchronized void unlock(@Nullable List<LockableResource> resourcesToUnLock,
-									@Nullable Run<?, ?> build, String requiredVar, boolean inversePrecedence) {
+									@Nullable Run<?, ?> build, boolean inversePrecedence) {
 		List<String> resourceNamesToUnLock = new ArrayList<>();
 		if (resourcesToUnLock != null) {
 			for (LockableResource r : resourcesToUnLock) {
@@ -354,10 +354,10 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			}
 		}
 
-		this.unlockNames(resourceNamesToUnLock, build, requiredVar, inversePrecedence);
+		this.unlockNames(resourceNamesToUnLock, build, inversePrecedence);
 	}
 
-	public synchronized void unlockNames(@Nullable List<String> resourceNamesToUnLock, @Nullable Run<?, ?> build, String requiredVar, boolean inversePrecedence) {
+	public synchronized void unlockNames(@Nullable List<String> resourceNamesToUnLock, @Nullable Run<?, ?> build, boolean inversePrecedence) {
 		// make sure there is a list of resource names to unlock
 		if (resourceNamesToUnLock == null || (resourceNamesToUnLock.isEmpty())) {
 			return;
@@ -411,7 +411,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 								"this could be a legitimate status if the build waiting for the lock was deleted or" +
 								" hard killed. More information at Level.FINE if debug is needed.");
 						LOGGER.log(Level.FINE, "Can not get the Run object from the context to proceed with lock", e);
-						unlockNames(remainingResourceNamesToUnLock, build, requiredVar, inversePrecedence);
+						unlockNames(remainingResourceNamesToUnLock, build, inversePrecedence);
 						return;
 					}
 				}
@@ -436,7 +436,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 				remainingResourceNamesToUnLock.retainAll(freeResources);
 
 				// continue with next context
-				LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(), requiredVar, inversePrecedence);
+				LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariabelName(), inversePrecedence);
 			}
 		}
 		save();
@@ -756,14 +756,14 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	 * Adds the given context and the required resources to the queue if
 	 * this context is not yet queued.
 	 */
-	public synchronized void queueContext(StepContext context, List<LockableResourcesStruct> requiredResources, String resourceDescription) {
+	public synchronized void queueContext(StepContext context, List<LockableResourcesStruct> requiredResources, String resourceDescription, String variabelName) {
 		for (QueuedContextStruct entry : this.queuedContexts) {
 			if (entry.getContext() == context) {
 				return;
 			}
 		}
 
-		this.queuedContexts.add(new QueuedContextStruct(context, requiredResources, resourceDescription));
+		this.queuedContexts.add(new QueuedContextStruct(context, requiredResources, resourceDescription, variabelName));
 		save();
 	}
 
