@@ -606,7 +606,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			}
 
 			// continue with next context
-			LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(), null, false);
+			LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariabelName() , false);
 		}
 		save();
 	}
