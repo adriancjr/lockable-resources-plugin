@@ -34,9 +34,9 @@ public class QueuedContextStruct implements Serializable {
 	 * Description of the required resources used within logging messages.
 	 */
 	private String resourceDescription;
-        
-        /*
-	 * Name of the variable to save the locks taken
+
+	/*
+	 * Name of the variable to save the locks taken.
 	 */
 	private String variableName;
 
@@ -47,7 +47,7 @@ public class QueuedContextStruct implements Serializable {
 		this.context = context;
 		this.lockableResourcesStruct = lockableResourcesStruct;
 		this.resourceDescription = resourceDescription;
-                this.variableName = variabelName;
+		this.variableName = variabelName;
 	}
 
 	/*
@@ -70,9 +70,9 @@ public class QueuedContextStruct implements Serializable {
 	public String getResourceDescription() {
 		return this.resourceDescription;
 	}
-        
-        /*
-	 * Gets the variabel name to save the locks taken
+
+	/*
+	 * Gets the variabel name to save the locks taken.
 	 */
 	public String getVariabelName() {
 		return this.variableName;
