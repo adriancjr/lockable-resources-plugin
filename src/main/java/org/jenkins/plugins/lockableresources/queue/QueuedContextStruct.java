@@ -43,11 +43,11 @@ public class QueuedContextStruct implements Serializable {
 	/*
 	 * Constructor for the QueuedContextStruct class.
 	 */
-	public QueuedContextStruct(StepContext context, List<LockableResourcesStruct> lockableResourcesStruct, String resourceDescription, String variabelName) {
+	public QueuedContextStruct(StepContext context, List<LockableResourcesStruct> lockableResourcesStruct, String resourceDescription, String variableName) {
 		this.context = context;
 		this.lockableResourcesStruct = lockableResourcesStruct;
 		this.resourceDescription = resourceDescription;
-		this.variableName = variabelName;
+		this.variableName = variableName;
 	}
 
 	/*
@@ -72,9 +72,9 @@ public class QueuedContextStruct implements Serializable {
 	}
 
 	/*
-	 * Gets the variabel name to save the locks taken.
+	 * Gets the variable name to save the locks taken.
 	 */
-	public String getVariabelName() {
+	public String getVariableName() {
 		return this.variableName;
 	}
 

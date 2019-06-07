@@ -436,7 +436,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 				remainingResourceNamesToUnLock.retainAll(freeResources);
 
 				// continue with next context
-				LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariabelName(), inversePrecedence);
+				LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariableName(), inversePrecedence);
 			}
 		}
 		save();
@@ -606,7 +606,7 @@ public class LockableResourcesManager extends GlobalConfiguration {
 			}
 
 			// continue with next context
-			LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariabelName() , false);
+			LockStepExecution.proceed(resourceNamesToLock, nextContext.getContext(), nextContext.getResourceDescription(),nextContext.getVariableName() , false);
 		}
 		save();
 	}
@@ -756,14 +756,14 @@ public class LockableResourcesManager extends GlobalConfiguration {
 	 * Adds the given context and the required resources to the queue if
 	 * this context is not yet queued.
 	 */
-	public synchronized void queueContext(StepContext context, List<LockableResourcesStruct> requiredResources, String resourceDescription, String variabelName) {
+	public synchronized void queueContext(StepContext context, List<LockableResourcesStruct> requiredResources, String resourceDescription, String variableName) {
 		for (QueuedContextStruct entry : this.queuedContexts) {
 			if (entry.getContext() == context) {
 				return;
 			}
 		}
 
-		this.queuedContexts.add(new QueuedContextStruct(context, requiredResources, resourceDescription, variabelName));
+		this.queuedContexts.add(new QueuedContextStruct(context, requiredResources, resourceDescription, variableName));
 		save();
 	}
 
